@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lee Min Ho</title>
+     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body class="bg-white font-sans antialiased">
+   
+    <div id="filmografia"></div>
+
+    <script src="post.js"></script>
+
+    <script type="text/babel">
+        function Ficha({ post }) {
+            return (
+                <article className="flex h-full min-w-0 flex-col rounded-lg bg-gray-800 p-4 text-gray-300 shadow-lg ring-1 ring-inset ring-white/10">
+                    <img
+                        className="h-64 w-full shrink-0 rounded bg-gray-900 object-contain object-center sm:h-72 lg:h-80"
+                        src={post.image}
+                        alt={post.title}
+                    />
+                    <h2 className="mt-5 text-2xl font-bold leading-snug text-white">{post.title}</h2>
+                    <p className="mt-4 text-lg leading-7">{post.description}</p>
+                    <p className="mt-5 line-clamp-3 text-lg leading-7 text-gray-400">{post.content}</p>
+                    <p className="mt-auto pt-6 text-base leading-6">{post.created_at}</p>
+                </article>
+            );
+        }
+        function Galeria({ posts }) {
+            return (
+                <div className="grid grid-cols-1 items-stretch gap-6 md:grid-cols-2 xl:grid-cols-3">
+                    {posts.map((post) => (
+                        <Ficha key={post.id} post={post} />
+                    ))}
+                </div>
+            );
+        }
+        function App() {
+            return (
+                <main className="mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
+                    <div className="mb-10 text-center">
+                        <p className="mb-2 text-sm font-medium tracking-[0.35em] text-gray-500">
+                            이민호 필모그래피
+                        </p>
+
+                        <h1 className="text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">
+                            Filmografía de Lee Min-ho
+                        </h1>
+
+                        <div className="mx-auto mt-4 h-px w-20 bg-gray-400"></div>
+                    </div>
+                    <Galeria posts={postsData} />
+
+                </main>
+            );
+        }
+        const container = document.getElementById('filmografia');
+        const filmografia = ReactDOM.createRoot(container);
+        filmografia.render(<App />);
+    </script>
+
+</body>
+</html>
